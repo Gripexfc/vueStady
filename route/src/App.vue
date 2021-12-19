@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <div class='tab'>
+        <kroute-link to='/home'>左边</kroute-link>
+        <kroute-link to='/my'>右边</kroute-link>
+      </div>
+      <kroute-view>1</kroute-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import my from "./components/my.vue";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    my
   }
 }
 </script>
@@ -24,5 +26,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.tab {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  margin: 0 auto;
 }
 </style>
