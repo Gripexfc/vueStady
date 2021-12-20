@@ -1,7 +1,8 @@
-import kroute from "./route";
+import VueRouter from "./route";
 import home from "../components/home.vue";
 import my from "../components/my.vue";
-
+import Vue from 'vue'
+Vue.use(VueRouter)
 let routeList = {
     routes: [
         {
@@ -15,8 +16,7 @@ let routeList = {
     ]
 }
 
-const route = new kroute(routeList)
-
+const route = new VueRouter(routeList)
 
 export default route
 

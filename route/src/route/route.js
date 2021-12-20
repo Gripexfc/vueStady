@@ -1,18 +1,20 @@
 
 let Vue;
 
-class kroute {
+class VueRouter {
     constructor(option) {
         //传入routeList参数
         this.$option = option;
+
         Vue.util.defineReactive(this, 'current', window.location.hash.slice(1) || '/')
+        this.current = window.location.hash.slice(1) || '/'
         window.addEventListener('hashchange',()=>{
             this.current = window.location.hash.slice(1) || '/'
         })
     }
 }
 
-kroute.install = function(_vue) {
+VueRouter.install = function(_vue) {
     Vue = _vue;
 
     Vue.mixin({beforeCreate() {
@@ -27,7 +29,7 @@ kroute.install = function(_vue) {
             if (route) {
                 component = route.component;
             }
-
+            console.log(this,'Vue')
             return h(component)
         }
     })
@@ -54,5 +56,5 @@ kroute.install = function(_vue) {
     })
 }
 
-export default kroute;
+export default VueRouter;
 
