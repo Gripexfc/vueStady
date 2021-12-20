@@ -1,20 +1,17 @@
 <template>
   <div id="app">
       <div class='tab'>
-        <kroute-link to='/home'>左边</kroute-link>
-        <kroute-link to='/my'>右边</kroute-link>
+        <kroute-link to='/home'>home</kroute-link>
+        <kroute-link to='/my'>my</kroute-link>
       </div>
-      <kroute-view>1</kroute-view>
+      <kroute-view></kroute-view>
   </div>
 </template>
 
 <script>
-import my from "./components/my.vue";
+
 export default {
   name: 'App',
-  components: {
-    my
-  }
 }
 </script>
 
