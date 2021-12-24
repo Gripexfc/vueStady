@@ -1,9 +1,10 @@
+import Vue from 'vue'
 import vuex from './vuex';
 
-const store = new vuex.Store({
+Vue.use(vuex)
+
+export default new vuex.Store({
     state: {
         curre: 0
     },
 })
-
-export default store

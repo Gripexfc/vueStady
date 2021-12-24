@@ -5,6 +5,8 @@
         <kroute-link to='/my'>my</kroute-link>
       </div>
       <kroute-view></kroute-view>
+
+      <div>{{$store.state.curre}}</div>
   </div>
 </template>
 
@@ -12,6 +14,11 @@
 
 export default {
   name: 'App',
+  methods: {
+    log() {
+      // console.log(this,'store')
+    }
+  }
 }
 </script>
 
