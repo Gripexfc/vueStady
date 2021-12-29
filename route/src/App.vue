@@ -5,7 +5,7 @@
         <kroute-link to='/my'>my</kroute-link>
       </div>
       <kroute-view></kroute-view>
-
+      <div @click="$store.dispatch('setState')">commit</div>
       <div>{{$store.state.curre}}</div>
   </div>
 </template>
@@ -14,6 +14,9 @@
 
 export default {
   name: 'App',
+  mounted() {
+
+  },
   methods: {
     log() {
       // console.log(this,'store')
