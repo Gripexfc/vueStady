@@ -5,8 +5,9 @@
         <kroute-link to='/my'>my</kroute-link>
       </div>
       <kroute-view></kroute-view>
-      <div @click="$store.dispatch('setState')">commit</div>
+      <div @click="log">commit</div>
       <div>{{$store.state.curre}}</div>
+      <div>{{$store.getters.computedData}}</div>
   </div>
 </template>
 
@@ -19,7 +20,8 @@ export default {
   },
   methods: {
     log() {
-      // console.log(this,'store')
+      // debugger
+      this.$store.dispatch('setState')
     }
   }
 }

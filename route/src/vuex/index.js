@@ -15,6 +15,12 @@ export default new vuex.Store({
     mutations: {
         add(state, payload) {
             state.curre += payload;
+            console.log(state.curre,'state.curre')
         }
     },
+    getters: {
+        computedData: ()=>{
+            return state.curre
+        }
+    }
 })
