@@ -19,8 +19,8 @@ export default new vuex.Store({
         }
     },
     getters: {
-        computedData: ()=>{
-            return state.curre
+        computedData: (state)=>{
+            return state.curre * 2;
         }
     }
 })

@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     log() {
-      // debugger
       this.$store.dispatch('setState')
     }
   }

@@ -1,40 +1,43 @@
 let Vue;
 
 class Store{
-    constructor (option){
-        this.$option = option;
+    constructor (options){
+        this.$options = options;
         
-        this._mutations = option.mutations;
-        this._actions = option.actions;
-        this._getters = option.getters;
+        this._mutations = options.mutations;
+        this._actions = options.actions;
+        this._getters = options.getters || {}
 
         //对方法进行绑定,调用当前上下文
         this.commit = this.commit.bind(this);
         this.dispatch = this.dispatch.bind(this);
         let computed = {};
-        Object.keys(this._getters).forEach(key =>{
-            //getters利用vue中computed实现在vuex中的计算属性
-            //参考https://github1s.com/vuejs/vuex/blob/HEAD/src/store.js#L294   {L: 294行}
-            computed[key] = this._getters[key];
-            Object.defineProperty(this._getters, key, {
-                get: ()=>  this._getters[key](),
+        this.getters = {};
+
+        const store = this;
+
+        Object.keys(this._getters).forEach(key =>{``
+        //     //getters利用vue中computed实现在vuex中的计算属性
+        //     //参考https://github1s.com/vuejs/vuex/blob/HEAD/src/store.js#L294   {L: 294行}
+            const fn = store._getters[key]
+            computed[key] = function() {
+                return fn(store.state);
+            };
+            Object.defineProperty(store.getters, key, {
+                get: () =>  store._vm[key],
                 enumerable: true 
             })
         })
-
         //通过new vue将数据变成响应式
         this._vm = new Vue({
             data: function() {
                 return {
                     //不希望用户看到data使用$$隐藏
-                    $$state: option.state
+                    $$state: options.state
                 }
             },
             computed
         })
-    }
-    get getters() {
-        return this._getters
     }
     get state() {
         return this._vm._data.$$state;
