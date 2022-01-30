@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vue</title>
     <div id='app' v-if="foo">
-        <p v-text='foo'>{{foo}}</p>
+        <p>{{foo}}</p>
+        <div v-html="html"></div>
     </div>
     <script src='./vue.js'></script>
 </head>
@@ -15,13 +16,14 @@
         const vm = new Vue({
             el: '#app',
             data: {
-                foo: 0
+                foo: 0,
+                html: '<h1>解析html</h1>'
             }
         })
-        console.log(vm.foo,'vm')
-        // setInterval(()=>{
-        //     vm.foo++;
-        // },1000)
+        // console.log(vm.foo,'vm')
+        setInterval(()=>{
+            vm.foo++;
+        },1000)
         // vm.foo = 9;
         // let foo = {};
         // defineReactive(foo, currn,1++)
