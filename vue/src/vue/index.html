@@ -5,18 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>vue</title>
-    <div>{{foo.currn}}</div>
+    <div id='app' v-if="foo">
+        <p v-text='foo'>{{foo}}</p>
+    </div>
     <script src='./vue.js'></script>
 </head>
 <body>
     <script>
         const vm = new Vue({
+            el: '#app',
             data: {
                 foo: 0
             }
         })
         console.log(vm.foo,'vm')
-        vm.foo = 9;
+        // setInterval(()=>{
+        //     vm.foo++;
+        // },1000)
+        // vm.foo = 9;
         // let foo = {};
         // defineReactive(foo, currn,1++)
     </script>
