@@ -44,13 +44,16 @@ export function initMixin (Vue: Class<Component>) {
     }
     /* istanbul ignore else */
     if (process.env.NODE_ENV !== 'production') {
+      //在开发环境下进行代理，抛出警告等
       initProxy(vm)
     } else {
       vm._renderProxy = vm
     }
     // expose real self
     vm._self = vm
+    //初始话实例的属性$parent,$childrend 生命周期等
     initLifecycle(vm)
+    //初始化事件 $once on off emit等
     initEvents(vm)
     initRender(vm)
     callHook(vm, 'beforeCreate')

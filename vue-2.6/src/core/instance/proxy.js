@@ -35,6 +35,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
   const hasProxy =
+    //判proxy是否可用
     typeof Proxy !== 'undefined' && isNative(Proxy)
 
   if (hasProxy) {
@@ -53,7 +54,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
   const hasHandler = {
-    has (target, key) {
+    has (target, key) { 
       const has = key in target
       const isAllowed = allowedGlobals(key) ||
         (typeof key === 'string' && key.charAt(0) === '_' && !(key in target.$data))
