@@ -1,0 +1,129 @@
+<script>
+    class myPromise {
+        static PENGDING = 'pending';
+        static FULFILLED = 'fulfilled';
+        static REJECTED = 'rejected';
+        constructor(executor) {
+            // console.log(myPromise,'PENGDING')
+            this.value = null;
+            this.status  = 'pending';
+            this.calback = [];
+            try {
+                executor(this.resolve.bind(this), this.reject.bind(this))
+            } catch (error) {
+                this.reject.bind(this)
+            }
+        }
+        
+        resolve(value) {
+            // debugger
+            if (this.status === 'pending') {
+                this.status = myPromise.FULFILLED;
+                this.value = value;
+                this.calback.forEach(cd => {
+                    cd.onFulfilled(value)
+                })
+            }
+        }
+
+        reject(reason) {
+            if (this.status === 'pending') {
+                this.status = myPromise.REJECTED;
+                this.value = reason
+                this.calback.forEach(cd => {
+                    cd.onrejected(value)
+                })
+            }
+        }
+
+        then(onFulfilled, onrejected) {
+            // debugger
+            const pormise = new myPromise((resolve, reject) =>{
+                //.then方法后返回一个promise对象实现链式调用
+                if (this.status === 'pendding') {
+                    this.calback.push({
+                        onFulfilled: (value) =>{
+                            this.parse(pormise, onFulFilled(this.value), resolve, reject)
+                        },
+                        onrejected: (value) =>{
+                            this.parse(pormise, onrejected(this.value), resolve, reject)
+                        },
+                    })
+                }
+                if (this.status === 'fulfilled') {
+                    setTimeout(() => {
+                        this.parse(pormise, onFulfilled(this.value), resolve, reject)
+                    });
+                }
+                if (this.status === 'rejected') {
+                    setTimeout(() => {
+                        this.parse(pormise, onrejected(this.value), resolve, reject)
+                    })
+                }
+            });
+
+            // if (this.status === 'pendding') {
+                
+                // this.calback.push({
+                //     onFulfilled: (value)=>{
+                //         onFulfilled(value)   
+                //     },
+                //     onrejected: (reson)=>{
+                //         onrejected(reson)
+                //     }
+                // })
+            // }
+            return promise;
+        }
+
+        parse(promise, result, resolve, reject) {
+            console.log(promise)
+            if (promise === result) {
+                throw new TypeError('Chaining cycle detected for promise #')
+            }
+
+            try {
+            // 如果返回值是个promise，这里需要严格判断需要能跟其他库一起使用，就调用.then 方法
+            if (result !== null && result.then && typeof result.then === 'function' && result instanceof myPromise) {
+                result.then(resolve, reject)
+            } else {
+                resolve(result)
+            }
+            } catch (e) {
+                reject(e)
+            }
+        }
+
+        static resolve(value) {
+            return new myPromise((resolve, reject) => {
+            if (value instanceof myPromise) {
+                value.then(resolve, reject)
+            } else {
+                resolve(value)
+            }
+            })
+        }
+
+        static reject(value) {
+            return new myPromise((resolve, reject) => {
+                reject(value)
+            })
+        }
+    }
+
+    var promise = new myPromise(function(resolve, reject) {
+        resolve('用户传入的值')
+        // 异步处理
+        // 处理结束后、调用resolve 或 reject
+    });
+    promise.then((res)=>{
+        console.log(res,'res')
+        // resolve('第二次then')
+    }).then(e=>{
+        console.log(e,'e')
+    }).then(e=>{
+        console.log(e,'1')
+    })
+    // console.log(promise,'promise')
+
+</script>
